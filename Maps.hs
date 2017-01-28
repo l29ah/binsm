@@ -4,13 +4,6 @@ import Data.Int
 import Numeric
 import Text.Parsec
 
-lol = unlines [
-			"0x000000000000-0x000000040000 : \"u-boot\"",
-			"0x000000040000-0x000000050000 : \"u-boot-env\"",
-			"0x000000050000-0x000000180000 : \"kernel1\"",
-			"0x000000180000-0x000000f50000 : \"rootfs\"",
-			"0x000000000000-0x000001000000 : \"flash\""]
-
 data Part = Part
 	{ start :: Int64
 	, end :: Int64
