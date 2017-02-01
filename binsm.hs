@@ -56,6 +56,8 @@ optsP = Opts
 		))
 -}
 
+getpart pnam dmap = fromMaybe (error $ "Can't find partition \"" ++ pnam ++ "\"") $ listToMaybe $ filter (\p -> name p == pnam) dmap
+
 binsm :: Opts -> IO ()
 binsm opts = do
 	mapp <- Prelude.readFile $ mapFile opts
@@ -63,10 +65,10 @@ binsm opts = do
 	when (and [extractPartition opts /= Nothing, mergePartition opts /= Nothing]) $ error "cannot extract and merge at the same time"
 	img <- BL.getContents
 	when (extractPartition opts /= Nothing) $ do
-		let part = head $ filter (\p -> name p == (fromJust $ extractPartition opts)) dmap
+		let part = getpart (fromJust $ extractPartition opts) dmap
 		maybe BL.putStr BL.writeFile (partitionFile opts) $ BL.drop (start part) $ BL.take (end part) img
 	when (mergePartition opts /= Nothing) $ do
-		let part = head $ filter (\p -> name p == (fromJust $ mergePartition opts)) dmap
+		let part = getpart (fromJust $ mergePartition opts) dmap
 		partcont <- BL.readFile (fromJust $ partitionFile opts)
 		let filelen = BL.length partcont
 		let partlen = end part - start part
