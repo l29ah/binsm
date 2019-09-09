@@ -1,6 +1,7 @@
 module Maps where
 
 import Data.Int
+import Data.Maybe
 import Numeric
 import Text.Parsec
 
@@ -21,7 +22,9 @@ dmesgLine = do
 	name <- many $ noneOf "\""
 	string "\""
 	newline
-	return $ Part (rh st) (rh en) name
+	return $ Just $ Part (rh st) (rh en) name
+
+emptyLine = newline >> pure Nothing
 
 dmesg :: String -> [Part]
-dmesg s = let (Right res) = parse (many1 dmesgLine) "" s in res
+dmesg s = catMaybes $ either (error . show) id $ parse (many1 (dmesgLine <|> emptyLine)) "" s
