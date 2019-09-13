@@ -1,5 +1,6 @@
 name:                binsm
-version:             0.1
+-- semver
+version:             0.1.1
 synopsis:            binary files splitter and merger
 description:         binary files splitter and merger, makes working with offsets in your shell less painful
 homepage:            https://github.com/l29ah/binsm
@@ -7,12 +8,19 @@ license:             OtherLicense
 license-file:        LICENSE
 author:              Sergey Alirzaev
 maintainer:          zl29ah@gmail.com
--- copyright:           
--- category:            
+category:            Tools
 build-type:          Simple
-extra-source-files:  ChangeLog.md
 cabal-version:       >=1.10
 Tested-With:         GHC == 8.6.5
+
+Source-repository head
+  type:              git
+  location:          https://github.com/l29ah/binsm.git
+
+Source-repository this
+  type:              git
+  location:          https://github.com/l29ah/binsm.git
+  tag:               0.1.1
 
 executable binsm
   main-is:             binsm.hs
