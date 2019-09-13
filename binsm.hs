@@ -69,7 +69,7 @@ binsm opts = do
 		maybe BL.putStr BL.writeFile (partitionFile opts) $ BL.drop (start part) $ BL.take (end part) img
 	when (mergePartition opts /= Nothing) $ do
 		let part = getpart (fromJust $ mergePartition opts) dmap
-		partcont <- BL.readFile (fromJust $ partitionFile opts)
+		partcont <- BL.readFile (fromMaybe (error "no partition file specified") $ partitionFile opts)
 		let filelen = BL.length partcont
 		let partlen = end part - start part
 		when (filelen /= partlen) $ error "partition input file doesn't fit the partition"
