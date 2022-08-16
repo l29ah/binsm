@@ -3,3 +3,4 @@
 *.o
 binsm
 dist
+dist-newstyle
